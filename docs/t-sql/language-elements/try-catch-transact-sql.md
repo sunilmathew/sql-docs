@@ -314,6 +314,7 @@ BEGIN CATCH
     END;  
   
     -- Test whether the transaction is committable.  
+    -- If you're thinking why would we commit a transaction in a catch block, think if the transaction involved batch processing of similar unrelated records. So an error in   -     -- processing of one record does not need to rollback either the ones that succeeded earlier in this batch or the ones after this error that have not problem. I would also -     -- write the error details to a table here - between the rollback and commit.
     IF (XACT_STATE()) = 1  
     BEGIN  
         PRINT  
